@@ -22,7 +22,6 @@
             if (typeof state === 'undefined') {
                 return 0
             }
-
             switch (action.type) {
                 case 'INCREMENT':
                     return state + 1
@@ -33,7 +32,7 @@
             }
         }
 
-        var store = Redux.createStore(counter)
+        var store = uniquedux.createStore(counter)
         var valueEl = document.getElementById('value')
 
         function render() {

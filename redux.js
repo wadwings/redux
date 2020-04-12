@@ -11,13 +11,14 @@ class Store {
         this.reducer = reducer;
         this.state = initState;
     }
-    listeners = [];
+    listeners = new Array();
     getState(){
         return this.state;
     }
     dispatch(action){
         this.state = this.reducer(this.state, action);
-        this.listeners.foreach(v=>v());
+        for(var i in this.listeners)
+            this.listeners[i]();
     }
     subscribe(handler){
         this.listeners.push(handler);
@@ -32,4 +33,9 @@ class Store {
     }
 }
 
-var store = new Store()
+const uniquedux = {
+    createStore: function(reducer){
+        var tmp = new Store(reducer, reducer());
+        return tmp;
+    }
+}

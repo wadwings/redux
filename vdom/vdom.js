@@ -93,10 +93,14 @@ function render_id(vdom, id) {
 function render(node) {
     var ele = document.createElement(node["tag"]);
     for (let i in node["props"]) ele.setAttribute(i, node["props"][i]);
-    if (typeof node["children"][0] == "string")
-        ele.innerHTML = node["children"][0];
-    else
-        for (let i in node["children"])
+    for (let i in node["children"])
+        if (typeof node["children"][i] == "string"){
+            if(ele.innerHTML == '')
+                ele.innerHTML = node["children"][i];
+            else
+                ele.innerHTML += node["children"][i];
+        }
+        else
             ele.appendChild(render(node["children"][i]));
     return ele;
 }
@@ -147,7 +151,8 @@ function diffnode(oldNode, newNode) {
 }
 
 function dfswalker(vdom, walker, patch) {
-    var curPatch = patch[walker.index];
+    if (typeof(patch[walker.index]) != "undefined")
+        var curPatch = patch[walker.index];
     var len =
         typeof vdom["children"][0] == "object" ? vdom["children"].length : 0;
     for (let i = 0; i < len; i++) {
@@ -157,13 +162,14 @@ function dfswalker(vdom, walker, patch) {
     if (curPatch) {
         applyPatch(vdom, curPatch);
     }
+    return vdom;
 }
 
 function patcher(vdom, patch) {
-    const walker = {
+    walker = {
         index: 1,
     };
-    dfswalker(vdom, walker, patch);
+    return dfswalker(vdom, walker, patch);
 }
 
 function applyPatch(vdom, patch) {
@@ -184,3 +190,5 @@ function applyPatch(vdom, patch) {
         }
     }
 }
+
+

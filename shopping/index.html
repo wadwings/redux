@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>shopping</title>
+    <script src="../vdom/vdom.js"></script>
+    <script src="../redux.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body id="body">
+
+    <script>
+        /**
+         * 初始化变量
+        */
+        var total = 0;
+        var vdom = createElement("div", {}, [
+            createElement("main", { id: "main" }, [
+                createElement("div", {}, [
+                    createElement("img", { src: "pic/8499.jpg" }, []),
+                    createElement("p", {}, ["七彩虹（Colorful）iGame GeForce RTX 2080 Ti"]),
+                    createElement("p", {}, ["8499"]),
+                    createElement("div", { style: "display: flex; flex-flow: row;" }, [
+                        createElement("button", { class: "button" }, ["+"]),
+                        createElement("button", { class: "button" }, ["-"])
+                    ])
+                ]),
+                createElement("div", {}, [
+                    createElement("img", { src: "pic/9999.jpg" }, []),
+                    createElement("p", {}, ["技嘉(GIGABYTE)GeForce RTX 2080Ti"]),
+                    createElement("p", {}, ["9999"]),
+                    createElement("div", { style: "display: flex; flex-flow: row;" }, [
+                        createElement("button", { class: "button" }, ["+"]),
+                        createElement("button", { class: "button" }, ["-"])
+                    ])
+                ]),
+                createElement("div", {}, [
+                    createElement("img", { src: "pic/10888.jpg" }, []),
+                    createElement("p", {}, ["微星（MSI）魔龙 GeForce RTX 2080 Ti"]),
+                    createElement("p", {}, ["10888"]),
+                    createElement("div", { style: "display: flex; flex-flow: row;" }, [
+                        createElement("button", { class: "button" }, ["+"]),
+                        createElement("button", { class: "button" }, ["-"])
+                    ])
+                ]),
+                createElement("div", {}, [
+                    createElement("img", { src: "pic/12999.jpg" }, []),
+                    createElement("p", {}, ["华硕（ASUS）猛禽ROG-STRIX-GeForce RTX 2080 TI"]),
+                    createElement("p", {}, ["12999"]),
+                    createElement("div", { style: "display: flex; flex-flow: row;" }, [
+                        createElement("button", { class: "button" }, ["+"]),
+                        createElement("button", { class: "button" }, ["-"])
+                    ])
+                ]),
+            ]),
+            createElement("div", { id: "list" }, [
+                createElement("div", { id: "items" }, []),
+                createElement("div", { style: "display:flex; align-items: center; justify-content:center" }, [
+                    createElement("p", {}, ["共计" + total + "元"]),
+                    createElement("button", {}, ["check out"]),
+                    createElement("button", {onclick: "store.dispatch()"}, ["清空购物车"])
+                ]),createElement("div", {style: "display:flex; align-items: center; justify-content:center"}, [
+                    createElement("button", {onclick: "store.dispatch()"}, ["添加商品"]),
+                    createElement("button", {onclick: "store.dispatch()"}, ["删除商品"])
+                ])
+            ])
+        ]);
+        var list = [
+            ["七彩虹（Colorful）iGame GeForce RTX 2080 Ti",
+            "技嘉(GIGABYTE)GeForce RTX 2080Ti",
+            "微星（MSI）魔龙 GeForce RTX 2080 Ti",
+            "华硕（ASUS）猛禽ROG-STRIX-GeForce RTX 2080 TI"],
+            [8499,
+            9999,
+            10888,
+            12999]
+        ];
+
+        /**
+         * 给按钮绑定增加和减少的功能
+         */
+        function init(){
+            var button = document.getElementsByClassName('button');
+            for (var i = 0; i < button.length; i++) {
+                let tmp_name = list[0][parseInt(i / 2)];
+                let tmp_price = list[1][parseInt(i / 2)];
+                if(i % 2 == 0)
+                    button[i].addEventListener('click', function () {
+                    store.dispatch({ type: 'ADD', name: tmp_name, price: tmp_price})
+                })
+                else
+                    button[i].addEventListener('click', function () {
+                    store.dispatch({ type: 'DELETE', name: tmp_name, price: tmp_price})
+                })
+            }
+        }
+        /**
+         * 处理发送过来的操作
+         */
+        function shopPatch(vdom, patch){
+            console.log(patch);
+            var point = true;
+            switch(patch.type){
+                case "ADD":
+                    for(var i = 0; i < vdom["children"][1]["children"][0]["children"].length; i++){
+                        if(patch.name == vdom["children"][1]["children"][0]["children"][i]["children"][0]["children"][0]){
+                            vdom["children"][1]["children"][0]["children"][i]["children"][1]["children"][0] = (Number(vdom["children"][1]["children"][0]["children"][i]["children"][1]["children"][0]) + 1).toString();
+                            point = false;
+                            total += patch.price;
+                            break;
+                        }
+                    }
+                    if(point){
+                        vdom["children"][1]["children"][0]["children"].push(createElement("div", {class: "item"}, [
+                            createElement("p", {}, [patch.name]),
+                            createElement("p", {}, ["1"])
+                        ]))
+                        total += patch.price;
+                    }
+                    break;
+                case "DELETE":
+                    for(var i = 0; i < vdom["children"][1]["children"][0]["children"].length; i++){
+                        console.log(i);
+                        if(patch.name == vdom["children"][1]["children"][0]["children"][i]["children"][0]["children"][0]){
+                            if(Number(vdom["children"][1]["children"][0]["children"][i]["children"][1]["children"][0]) - 1 == 0){
+                                vdom["children"][1]["children"][0]["children"].splice(i,1);
+                            }
+                            else{
+                                vdom["children"][1]["children"][0]["children"][i]["children"][1]["children"][0] = (Number(vdom["children"][1]["children"][0]["children"][i]["children"][1]["children"][0]) - 1).toString();
+                            }
+                            total -= patch.price;
+                            break;
+                        }
+                    }
+                    break;
+                case "REMOVE":
+                    vdom["children"][0]["children"].splice(patch.id + 1, 1);
+                    list[0].splice(patch.id + 1, 1);
+                    list[1].splice(patch.id + 1, 1);
+                    break;
+                case "APPEND":
+                    vdom["children"][0]["children"].push(createElement("div", {}, [
+                    createElement("img", { src: "pic/8499.jpg" }, []),
+                    createElement("p", {}, [patch.name]),
+                    createElement("p", {}, [patch.price]),
+                    createElement("div", { style: "display: flex; flex-flow: row;" }, [
+                        createElement("button", { class: "button" }, ["+"]),
+                        createElement("button", { class: "button" }, ["-"])
+                    ])
+                    ]))
+                    list[0].push(patch.name);
+                    list[1].push(patch.price);
+                    break;
+                default:
+                    vdom["children"][1]["children"][0]["children"] = new Array();
+                    total = 0;
+                    break;
+            }
+            vdom["children"][1]["children"][1]["children"][0]["children"][0] = "共计" + total + "元";
+            return vdom;
+        }
+        /**
+         * reducer
+         */
+        function redux_patch(vdom, patch) {
+            if (typeof (vdom) == "undefined")
+                return this.vdom;
+            if (typeof (patch) == "undefined")
+                return shopPatch(vdom, {});
+            return shopPatch(vdom, patch);
+        }
+        /**
+         * 用uniquedux的createStore初始化store
+         */
+        var store = uniquedux.createStore(redux_patch);
+        function shoprender(){
+            var div = remove_id("body");
+            div.appendChild(render(store.state));
+            init();
+        }
+        /**
+         * 监听render函数
+         */
+        store.subscribe(shoprender);
+        /**
+         * 初始化DOM TREE
+         */
+        shoprender();
+    </script>
+</body>
+
+</html>
