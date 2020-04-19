@@ -1,9 +1,12 @@
 #main{
     width:550px;
     margin: 0 auto;
+    color: #777;
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+body{
+    background: #f5f5f5;
+}
 #title{
     width: 100%;
     font-size: 100px;
@@ -13,12 +16,15 @@
     margin: 0;
 }
 
-.todo{
+#todo{
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
     position: relative;
+    background-color: white;
 }
 
 .new-todo{
+    width: 100%;
+    max-width: 474px;
     padding: 16px 16px 16px 60px;
     border: none;
     background: rgba(0, 0, 0, 0.003);
@@ -27,19 +33,19 @@
     color: rgb(77, 77, 77);
     outline:none;
 }
-.todo input::-webkit-input-placeholder {
+#todo input::-webkit-input-placeholder {
 	font-style: italic;
 	font-weight: 300;
 	color: #e6e6e6;
 }
 
-.todo input::-moz-placeholder {
+#todo input::-moz-placeholder {
 	font-style: italic;
 	font-weight: 300;
 	color: #e6e6e6;
 }
 
-.todo input::input-placeholder {
+#todo input::input-placeholder {
 	font-style: italic;
 	font-weight: 300;
 	color: #e6e6e6;
@@ -50,6 +56,7 @@
     font-size: 22px;
     color: #737373;
     padding: 10px 27px 10px 27px;
+
 }
 
 .label{
@@ -58,7 +65,10 @@
     font-size: 0;
     position: absolute;
     top: 10px;
+    font-family: Segoe UI Symbol;
     left: -13px;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 .info{
@@ -72,4 +82,96 @@
 .info a{
     color: #bfbfbf;
     text-decoration: none;
+}
+
+.cal{
+    border-top: 1px solid #e6e6e6;
+    display: flex;
+    padding: 10px 15px;
+    position: relative;
+    justify-content: center;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
+}
+
+.cal p{
+    margin: 0;
+    position: absolute;
+    top: 14.5px;
+    left: 15px;
+}
+
+.cal button{
+    margin: 3px;
+    padding: 3px 7px;
+    color: inherit;
+    outline: none;
+    background-color: white;
+    border: 1px solid white;
+}
+
+.seleted{
+    border: 1px solid rgba(175, 47, 47, 0.2)!important;
+}
+
+.cal button:hover{
+    border: 1px solid rgba(175, 47, 47, 0.1);
+}
+
+.cal a{
+    position: absolute;
+    right: 15px;
+    top: 14.5px;
+    color: inherit;
+    cursor: pointer;
+}
+
+.items{
+    padding: 15px 15px 15px 60px;
+    font-size: 24px;
+    color: #4d4d4d;
+    display: flex;
+    position: relative;
+    border-top: 1px solid #e6e6e6;
+}
+
+.items p{
+    margin: 0;
+    z-index: 10;
+}
+
+.items input{
+    position: absolute;
+    top: 8px;
+    left: 0px;
+    border: none;
+    height: 40px;
+    outline: none;
+    background-image: url(data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23ededed%22%20stroke-width%3D%223%22/%3E%3C/svg%3E);
+    background-repeat: no-repeat;
+    background-position: center left;
+    cursor: pointer;
+}
+
+.delete{
+    position: absolute;
+    top: 9px;
+    z-index: 10;
+    right:15px;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    color: #cc9a9a;
+    background-color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.completed p{
+    color: #d9d9d9!important;
+    text-decoration: line-through;
+}
+
+.completed input{
+    background-image: url(data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23bddad5%22%20stroke-width%3D%223%22/%3E%3Cpath%20fill%3D%22%235dc2af%22%20d%3D%22M72%2025L42%2071%2027%2056l-4%204%2020%2020%2034-52z%22/%3E%3C/svg%3E)!important;
 }

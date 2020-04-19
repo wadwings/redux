@@ -1,5 +1,4 @@
 count = 0;
-patch = new Object();
 tmp = 0;
 
 function createElement(tag, props, children, key) {
@@ -121,7 +120,8 @@ function render(node) {
 
 function diff(oldNode, newNode) {
     count = 0;
-    diffnode(oldNode, newNode);
+    var patches = new Object();
+    return diffnode(oldNode, newNode, patches);
 }
 
 function listdiff(oldList, newList){
@@ -163,16 +163,16 @@ function key(list){
         li.push(list[i].key);
     return li;
 }
-function diffnode(oldNode, newNode) {
+function diffnode(oldNode, newNode, patches) {
     var temp = ++count;
-    patch[temp] = new Array();
+    patches[temp] = new Array();
     if (oldNode["tag"] != newNode["tag"])
-        patch[temp].push({
+    patches[temp].push({
             type: "TAG",
             tag: newNode["tag"],
         });
     if (!isObjectValueEqual(oldNode["props"], newNode["props"]))
-        patch[temp].push({
+    patches[temp].push({
             type: "PROPS",
             attr: newNode["props"],
         });
@@ -181,7 +181,7 @@ function diffnode(oldNode, newNode) {
         typeof newNode["children"][0] == "string"
     ) {
         if (oldNode["children"][0] != newNode["children"][0])
-            patch[temp].push({
+        patches[temp].push({
                 type: "TEXT",
                 content: newNode["children"],
             });
@@ -190,20 +190,20 @@ function diffnode(oldNode, newNode) {
             typeof oldNode["children"][0] != typeof newNode["children"][0] ||
             oldNode["children"].length != newNode["children"].length
         )
-            patch[temp].push({
+        patches[temp].push({
                 type: "REORDER",
                 node: newNode["children"],
             });
-        else if(oldNode["children"][0].key){
-            patch[temp].push(listdiff(oldNode["children"], newNode["children"]));
+        else if(oldNode["children"][0]&&oldNode["children"][0].key){
+            patches[temp].push(listdiff(oldNode["children"], newNode["children"]));
         }
         else{
             for (let i = 0; i < oldNode["children"].length; i++)
-                diffnode(oldNode["children"][i], newNode["children"][i]);
+                diffnode(oldNode["children"][i], newNode["children"][i],patches);
         }
     }
-    if (patch[temp].length == 0) delete patch[temp];
-    return;
+    if (patches[temp].length == 0) delete patches[temp];
+    return patches;
 }
 
 function dfswalker(vdom, walker, patch) {

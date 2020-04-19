@@ -39,8 +39,3 @@ const uniquedux = {
         return tmp;
     }
 }
-
-function hello(){
-    document.write('hello');
-}
-module.exports = hello;
