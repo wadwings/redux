@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>todomvc</title>
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <script type="text/script" src="index.js"></script>
+        <script type="text/script" src="..\app\redux.js"></script>
+        <script type="text/script" src="..\app\vdom.js"></script>
+        <script type="text/script" src="..\app\EventCenter.js"></script>
+    </head>
+    <body>
+        <main id="main">
+            <h1 id="title">todos</h1>
+            <section class="todo">
+                <label class="label"></label>
+                <input id="input" placeholder="What needs to be done?" class="new-todo">
+                <div id="todolist">
+                    <footer class="cal"></footer>
+                </div>
+            </section>
+            <footer class="info">
+                <p>Double-click to edit a todo</p>
+                <p>Created by <a href="http://github.com/wadwings/">wadwings</a></p>
+                <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+            </footer>
+        </main>
+    </body>
+</html>
