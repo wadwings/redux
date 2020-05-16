@@ -42,3 +42,19 @@ class EventCenter{
         delete this.listenOnce[type];
     }
 }
+
+
+const a = new EventCenter();
+const foo = () => console.log("call foo()");
+const bar = (name) => console.log(`hello ${name}`);
+const qaq = (msg) => console.log(msg);
+
+a.subscribe("foo", foo);
+a.subscribe("test", bar);
+a.subscribe("test", qaq);
+
+a.publish("foo");
+a.publish("test", "hhh");
+
+a.unsubscribe("test", qaq);
+a.publish("test", "???");

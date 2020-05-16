@@ -75,6 +75,7 @@ function rebuild(){
     var state = store.getState();
     var newNode = createElement("div", {}, []);
     var flag = false;
+    var count = 0;
     for(var i in state){
         if((state.inv == "all" || state.inv == "comp") && state[i].state == "completed"){
             flag = true;
@@ -90,11 +91,12 @@ function rebuild(){
                 createElement("button", {class: "delete", name: i}, ["X"])
             ]))
         }
+        count++;
     }
-    if(i)
+    if(count != 1)
         if(flag)
             newNode.children.push(createElement("footer", {class: "cal"}, [
-                createElement("p", {}, [total + "items left"]),
+                createElement("p", {}, [total + " items left"]),
                 createElement("div", {}, [
                     createElement("button", {id: "All"}, ["All"]),
                     createElement("button", {id: "Active"}, ["Active"]),
@@ -202,6 +204,13 @@ function add_todo(value){
     store.dispatch({type: "ADD", name: value});
 }
 
+function isEmpty(obj){
+    if(typeof obj == "undefined" || obj == null || obj == ""){
+        return true;
+    }else{
+        return false;
+    }
+}
 store.subscribe(rebuild);
 store.subscribe(init_delete);
 store.subscribe(init_complete);

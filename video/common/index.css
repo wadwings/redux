@@ -1,0 +1,74 @@
+body{
+    background-color: #afb4db;
+}
+
+video{
+    height: 640px;
+    width: 1080px;
+    cursor: pointer;
+}
+
+.control{
+    width: 1080px;
+}
+
+#progress{
+    display:block;
+    width:1000px;
+    margin: 0 auto;
+}
+
+.control button{
+    float: right;
+    width: 20px;
+    height: 20px;
+    margin:10px;
+}
+
+#play{
+    float: left;
+}
+
+#volume{
+    position:relative;
+}
+
+#volume:hover #leng{
+    opacity: 0.5!important;
+}
+
+#leng{
+    position: absolute;
+    top: 0;
+    width: 20px;
+    height: 110px;
+    z-index: 3;
+    background-color: black;
+    transform: translate(-40%, -100%);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+#slid1{
+    position: relative;
+    left: 7.5px;
+    width: 5px;
+    height: 0px;
+    background-color: #45b97c;
+}
+
+#slider{
+    position: relative;
+    left: 5px;
+    width:10px;
+    height:10px;
+    background-color: #b22c46;
+}
+
+#slid2{
+    position: relative;
+    left: 7.5px;
+    width: 5px;
+    height: 100px;
+    background-color: #fab27b;
+}

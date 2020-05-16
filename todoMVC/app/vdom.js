@@ -103,7 +103,7 @@ function render_id(vdom, id) {
     div.appendChild(render(vdom));
 }
 
-function render(node) {
+function render(node, dom) {
     var ele = document.createElement(node["tag"]);
     for (let i in node["props"]) ele.setAttribute(i, node["props"][i]);
     for (let i in node["children"])
