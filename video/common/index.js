@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const play_switch = __webpack_require__(/*! ./play_switch */ \"./app/control/play_switch.js\");\r\nconst construct = __webpack_require__(/*! ./construct */ \"./app/control/construct.js\")\r\nconst mute_switch = __webpack_require__(/*! ./mute_switch */ \"./app/control/mute_switch.js\")\r\nconst volume_change = __webpack_require__(/*! ./volume_change */ \"./app/control/volume_change.js\");\r\n\r\nfunction Init(){\r\n    let video = document.querySelector(\"video\");\r\n    video.parentNode.appendChild(construct());//将播放组件添加到播放器下方\r\n\r\n    let play_button = document.querySelector(\"#play\");\r\n    let clicklist = [video, play_button];\r\n    for(let i = 0; i < clicklist.length;i++){\r\n        play_switch(clicklist[i], video)//点击切换播放\r\n    }\r\n\r\n    mute_switch(document.querySelector(\"#volume\"), video);\r\n    volume_change(video);\r\n}\r\n\r\nmodule.exports = Init;\n\n//# sourceURL=webpack:///./app/control/Init.js?");
+eval("const play_switch = __webpack_require__(/*! ./play_switch */ \"./app/control/play_switch.js\");\r\nconst construct = __webpack_require__(/*! ./construct */ \"./app/control/construct.js\")\r\nconst mute_switch = __webpack_require__(/*! ./mute_switch */ \"./app/control/mute_switch.js\")\r\nconst volume_change = __webpack_require__(/*! ./volume_change */ \"./app/control/volume_change.js\");\r\nconst fullscreen_switch = __webpack_require__(/*! ./fullscreen_switch */ \"./app/control/fullscreen_switch.js\");\r\n\r\nmodule.exports = function(){\r\n    let video = document.querySelector(\"video\");\r\n    video.parentNode.appendChild(construct());//将播放组件添加到播放器下方\r\n    let play_button = document.querySelector(\"#play\");\r\n    let player = document.querySelector(\"#player\");\r\n    let fullscreen = document.querySelector(\"#fullscreen\");\r\n    let clicklist = [video, play_button];\r\n\r\n\r\n    for(let i = 0; i < clicklist.length;i++){\r\n        play_switch(clicklist[i], video)//播放与暂停监听\r\n    }\r\n    mute_switch(document.querySelector(\"#volume\"), video);//静音点击监听\r\n    volume_change(video);//声音变大变小监听\r\n    fullscreen_switch(fullscreen, player);//全屏切换监听\r\n}\n\n//# sourceURL=webpack:///./app/control/Init.js?");
 
 /***/ }),
 
@@ -108,14 +108,25 @@ eval("module.exports = function() {\r\n    let control = document.createElement(
 
 /***/ }),
 
-/***/ "./app/control/convert.js":
-/*!********************************!*\
-  !*** ./app/control/convert.js ***!
-  \********************************/
+/***/ "./app/control/fullscreen_switch.js":
+/*!******************************************!*\
+  !*** ./app/control/fullscreen_switch.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("function toFullVideo(videoDom) {\r\n    if (videoDom.requestFullscreen) {\r\n        return videoDom.requestFullscreen();\r\n    } else if (videoDom.webkitRequestFullScreen) {\r\n        return videoDom.webkitRequestFullScreen();\r\n    } else if (videoDom.mozRequestFullScreen) {\r\n        return videoDom.mozRequestFullScreen();\r\n    } else {\r\n        return videoDom.msRequestFullscreen();\r\n    }\r\n}//兼容封装\r\n\r\nfunction ExitFullVideo(videoDom) {\r\n    if (videoDom.exitFullscreen) {\r\n        return videoDom.exitFullscreen();\r\n    } else if (videoDom.msExitFullscreen) {\r\n        return videoDom.msExitFullscreen();\r\n    } else if (videoDom.mozCancelFullScreen) {\r\n        return videoDom.mozCancelFullScreen();\r\n    } else if (videoDom.webkitCancelFullScreen) {\r\n        return videoDom.webkitCancelFullScreen();\r\n    }\r\n}//兼容封装\r\n\r\nmodule.exports = function (button, div) {\r\n    let global = __webpack_require__(/*! ./global */ \"./app/control/global.js\");\r\n    div.addEventListener(\"fullscreenchange\", function(){\r\n        if(global.fullscreen){\r\n            global.fullscreen = false;\r\n        }else{\r\n            global.fullscreen = true;\r\n        }\r\n    })\r\n    button.addEventListener(\"click\", function () {\r\n        if (global.fullscreen) {\r\n            ExitFullVideo(div);\r\n        }else{\r\n            toFullVideo(div);\r\n        }\r\n    })\r\n    document.body.addEventListener(\"dblclick\", function () {\r\n        if(global.fullscreen){\r\n            ExitFullVideo(div);\r\n        }else{\r\n            toFullVideo(div);\r\n        }\r\n    })\r\n}\n\n//# sourceURL=webpack:///./app/control/fullscreen_switch.js?");
+
+/***/ }),
+
+/***/ "./app/control/global.js":
+/*!*******************************!*\
+  !*** ./app/control/global.js ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = function(arr){\r\n    let i = 0;\r\n    while(\"1\" <= arr[i] <= \"9\"){\r\n        i++\r\n    }\r\n    let number = arr[i] - \"0\";\r\n    while(\"1\" <= arr[i] <= \"9\"){\r\n        number = number*10 + arr[i] - \"0\";\r\n        i++\r\n    }\r\n    return number;\r\n}\n\n//# sourceURL=webpack:///./app/control/convert.js?");
+eval("let global = {\r\n    fullscreen: false\r\n}\r\n\r\nmodule.exports = exports =  global;\n\n//# sourceURL=webpack:///./app/control/global.js?");
 
 /***/ }),
 
@@ -146,9 +157,9 @@ eval("module.exports = function(ele, video){\r\n    ele.addEventListener('click'
   !*** ./app/control/volume_change.js ***!
   \**************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-eval("\r\nconst convert = __webpack_require__(/*! ./convert */ \"./app/control/convert.js\");\r\n/*module.exports = function(slider){\r\n    slider.addEventListener(\"drag\", tmp = function(){\r\n        console.log(\"change\");\r\n        setTimeout(function(){}, 300);\r\n        let tmp1 = getMousePos().y;\r\n        let d = tmp1 - tmp;\r\n        if(convert(document.defaultView.getComputedStyle(slid1).height) + d <= 100 && convert(document.defaultView.getComputedStyle(slid1).height) + d >= 0){\r\n            slid1.setAttribute(\"style\", \"height: \" + convert(document.defaultView.getComputedStyle(slid1).height) + d + \"px\");\r\n            slid2.setAttribute(\"style\", \"height: \" + convert(document.defaultView.getComputedStyle(slid2).height) + d + \"px\");\r\n        }else if(convert(document.defaultView.getComputedStyle(slid1).height) + d > 100){\r\n            slid1.setAttribute(\"style\", \"100px\");\r\n            slid2.setAttribute(\"style\", \"0px\");\r\n        }else{\r\n            slid1.setAttribute(\"style\", \"0px\");\r\n            slid2.setAttribute(\"style\", \"100px\");\r\n        }\r\n        return tmp1;\r\n    })\r\n}*/\r\n\r\nmodule.exports = function(video){\r\n    let index = 0\r\n    document.querySelector(\"#slider\").ondrag = function(event){\r\n        let d;\r\n        if(index != 0)\r\n            d = event.clientY - index;\r\n        else\r\n            d = 0;\r\n        const slid1 = document.querySelector(\"#slid1\");\r\n        const slid2 = document.querySelector(\"#slid2\");\r\n        if(slid1.clientHeight + d <= 100 && slid1.clientHeight + d >= 0){\r\n            video.volume = (slid2.clientHeight - d)/100;\r\n            slid1.setAttribute(\"style\", \"height: \" + (slid1.clientHeight + d) + \"px\");\r\n            slid2.setAttribute(\"style\", \"height: \" + (slid2.clientHeight - d) + \"px\");\r\n        }else if(slid1.clientHeight + d > 100){\r\n            video.volume = (slid2.clientHeight - d)/100;\r\n            slid1.setAttribute(\"style\", \"height: 100px\");\r\n            slid2.setAttribute(\"style\", \"height: 0px\");\r\n            }\r\n        index = event.clientY;\r\n    }\r\n}\n\n//# sourceURL=webpack:///./app/control/volume_change.js?");
+eval("module.exports = function(video){\r\n    let index = 0\r\n    document.querySelector(\"#slider\").ondrag = function(event){\r\n        let d;\r\n        if(index != 0)\r\n            d = event.clientY - index;\r\n        else\r\n            d = 0;\r\n        const slid1 = document.querySelector(\"#slid1\");\r\n        const slid2 = document.querySelector(\"#slid2\");\r\n        if(slid1.clientHeight + d <= 100 && slid1.clientHeight + d >= 0){\r\n            video.volume = (slid2.clientHeight - d)/100;\r\n            slid1.setAttribute(\"style\", \"height: \" + (slid1.clientHeight + d) + \"px\");\r\n            slid2.setAttribute(\"style\", \"height: \" + (slid2.clientHeight - d) + \"px\");\r\n        }else if(slid1.clientHeight + d > 100){\r\n            video.volume = (slid2.clientHeight - d)/100;\r\n            slid1.setAttribute(\"style\", \"height: 100px\");\r\n            slid2.setAttribute(\"style\", \"height: 0px\");\r\n            }\r\n        index = event.clientY;\r\n    }\r\n}\n\n//# sourceURL=webpack:///./app/control/volume_change.js?");
 
 /***/ }),
 
