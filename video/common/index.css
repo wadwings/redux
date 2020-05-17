@@ -6,14 +6,50 @@ body{
     height: 640px;
     width: 1080px;
     cursor: pointer;
+    margin:0 auto;
 }
 
 video{
     width: 100%;
 }
 
+#barrage{
+    position: relative;
+    display:inline-flex;
+    height:100%;
+    width:50%;
+    left: 200px;
+}
+#input{
+    margin:5px 0;
+    padding:5px;
+    height: 20px;
+    width:100%;
+    outline: none;
+    border: none;
+    background-color:rgba(255, 255, 255, 0.5);
+    color: white;
+}
+#send{
+    margin:5px 10px;
+    height:30px;
+    width:80px;
+    background: rgba(255, 255, 255, 0.8);
+    color:white;
+}
+
 .control{
-    width: 1080px;
+    position: relative;
+    width: 100%;
+    height: 45px;
+    bottom: 50px;
+    color: white;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.control:hover{
+    opacity: 1;
 }
 
 #progress{
@@ -24,9 +60,13 @@ video{
 
 .control button{
     float: right;
-    width: 20px;
-    height: 20px;
-    margin:10px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    outline: none;
+    border: 0;
+    background: none;
+    cursor: pointer;
 }
 
 #play{
@@ -34,6 +74,7 @@ video{
 }
 
 #volume{
+    float: left;
     position:relative;
 }
 
@@ -42,28 +83,36 @@ video{
 }
 
 #leng{
+    display: flex;
     position: absolute;
     top: 0;
-    width: 20px;
-    height: 110px;
+    height: 20px;
+    width: 110px;
     z-index: 3;
-    background-color: black;
-    transform: translate(-40%, -100%);
+    transform: translate(45px, 10px);
     opacity: 0;
     transition: 0.3s;
 }
 
+#rate{
+    width:35px;
+    height:35px;
+    font-size:15px;
+    margin:3px;
+    color:white;
+}
+
 #slid1{
     position: relative;
-    left: 7.5px;
-    width: 5px;
-    height: 0px;
+    top: 7.5px;
+    width: 100px;
+    height: 5px;
     background-color: #45b97c;
 }
 
 #slider{
     position: relative;
-    left: 5px;
+    top: 5px;
     width:10px;
     height:10px;
     background-color: #b22c46;
@@ -71,8 +120,52 @@ video{
 
 #slid2{
     position: relative;
-    left: 7.5px;
-    width: 5px;
-    height: 100px;
+    top: 7.5px;
+    width: 0px;
+    height: 5px;
     background-color: #fab27b;
+}
+
+#progress{
+    width:100%;
+    height: 5px!important;
+    display:flex;
+}
+
+#progress div{
+    height:5px;
+}
+
+#non_played{
+    width: 79.5%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#time{
+    font-size: 20px;
+    position: relative;
+    left: 120px;
+    top: 2px;
+    transition: 0.5s;
+    display:inline;
+}
+
+#played{
+    width: 20%;
+    background-color: red;
+}
+
+#bar{
+    width: 5px;
+    background-color: red;
+}
+
+#bar:hover{
+    transform: scale(3,3);
+    border-radius: 50%;
+    transition: transform 0.5s;
+}
+
+svg{
+    width:100%;
 }

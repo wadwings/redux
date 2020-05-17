@@ -3,20 +3,21 @@ module.exports = function(video){
     document.querySelector("#slider").ondrag = function(event){
         let d;
         if(index != 0)
-            d = event.clientY - index;
+            d = -(event.clientX - index);
         else
             d = 0;
+        console.log(d);
         const slid1 = document.querySelector("#slid1");
         const slid2 = document.querySelector("#slid2");
-        if(slid1.clientHeight + d <= 100 && slid1.clientHeight + d >= 0){
-            video.volume = (slid2.clientHeight - d)/100;
-            slid1.setAttribute("style", "height: " + (slid1.clientHeight + d) + "px");
-            slid2.setAttribute("style", "height: " + (slid2.clientHeight - d) + "px");
-        }else if(slid1.clientHeight + d > 100){
-            video.volume = (slid2.clientHeight - d)/100;
-            slid1.setAttribute("style", "height: 100px");
-            slid2.setAttribute("style", "height: 0px");
+        if(slid2.clientWidth + d <= 100 && slid2.clientWidth + d >= 0){
+            video.volume = (slid1.clientWidth - d)/100;
+            slid2.setAttribute("style", "width: " + (slid2.clientWidth + d) + "px");
+            slid1.setAttribute("style", "width: " + (slid1.clientWidth - d) + "px");
+        }else if(slid2.clientWidth + d > 100){
+            video.volume = (slid1.clientWidth - d)/100;
+            slid2.setAttribute("style", "width: 100px");
+            slid1.setAttribute("style", "width: 0px");
             }
-        index = event.clientY;
+        index = event.clientX;
     }
 }

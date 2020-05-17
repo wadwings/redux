@@ -1,2 +1,2 @@
-const init = require("./control/Init")
+const init = require("./public/Init")
 init();

@@ -9,37 +9,38 @@ function toFullVideo(videoDom) {
         return videoDom.msRequestFullscreen();
     }
 }//兼容封装
-
-function ExitFullVideo(videoDom) {
-    if (videoDom.exitFullscreen) {
-        return videoDom.exitFullscreen();
-    } else if (videoDom.msExitFullscreen) {
-        return videoDom.msExitFullscreen();
-    } else if (videoDom.mozCancelFullScreen) {
-        return videoDom.mozCancelFullScreen();
-    } else if (videoDom.webkitCancelFullScreen) {
-        return videoDom.webkitCancelFullScreen();
+function ExitFullVideo(va) {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
     }
-}//兼容封装
+}
 
 module.exports = function (button, div) {
-    let global = require("./global");
+    window.fullscreen = false;
     div.addEventListener("fullscreenchange", function(){
-        if(global.fullscreen){
-            global.fullscreen = false;
+        if(window.fullscreen){
+            window.fullscreen = false;
         }else{
-            global.fullscreen = true;
+            window.fullscreen = true;
         }
     })
     button.addEventListener("click", function () {
-        if (global.fullscreen) {
+        if (window.fullscreen) {
             ExitFullVideo(div);
         }else{
             toFullVideo(div);
         }
     })
     div.addEventListener("dblclick", function () {
-        if(global.fullscreen){
+        while(window.timeout.length)
+            clearTimeout(window.timeout.pop());
+        if(window.fullscreen){
             ExitFullVideo(div);
         }else{
             toFullVideo(div);
