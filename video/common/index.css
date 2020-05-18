@@ -83,10 +83,6 @@ video{
     position:relative;
 }
 
-#volume:hover #leng{
-    opacity: 0.5!important;
-}
-
 #leng{
     display: flex;
     position: absolute;
@@ -112,7 +108,7 @@ video{
     top: 7.5px;
     width: 100px;
     height: 5px;
-    background-color: #45b97c;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 #slider{
@@ -120,7 +116,7 @@ video{
     top: 5px;
     width:10px;
     height:10px;
-    background-color: #b22c46;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 #slid2{
@@ -128,7 +124,7 @@ video{
     top: 7.5px;
     width: 0px;
     height: 5px;
-    background-color: #fab27b;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 #progress{
@@ -149,7 +145,6 @@ video{
 #time{
     font-size: 20px;
     position: relative;
-    left: 120px;
     top: 2px;
     transition: 0.5s;
     display:inline;

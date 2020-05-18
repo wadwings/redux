@@ -5,12 +5,6 @@ module.exports = function(player){
     btn.onclick = function () {
         addBarrage(player);
     };
-    document.onkeydown = function (evt) {
-        var event = evt || window.event;
-        if (event.keyCode == 13) {
-            addBarrage(player);
-        }
-    };
 }
 
 

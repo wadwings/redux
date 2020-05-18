@@ -5,8 +5,9 @@ const volume_change = require("../control/volume_change");
 const fullscreen_switch = require("../control/fullscreen_switch");
 const rate_switch = require("../control/rate");
 const progress = require("../control/progress");
-const time = require("../control/time");
+const time = require("../control/sync");
 const barrage = require("../barrage/barrage");
+const key_down = require("./keydown");
 
 
 
@@ -30,4 +31,5 @@ module.exports = function(){
     progress(video);//视频进度调节
     time(video);//视频当前播放时间获取
     barrage(player);
+    key_down(player);
 }

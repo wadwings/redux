@@ -21,11 +21,15 @@ module.exports = function(video){
             console.log("3" + played.clientWidth + rate);
             console.log("2" + played.clientWidth);
             non_played.style.width= (non_played.clientWidth - rate) + "px";
-        }else{
+        }else if(played.clientWidth + rate > progress.clientWidth){
             video.currentTime = duration;
             played.setAttribute("style", "width: 100%");
             non_played.setAttribute("style", "width: 0%");
-            }
+        }else{
+            video.currentTime = 0;
+            played.setAttribute("style", "width: 0%");
+            non_played.setAttribute("style", "width: 100%");
+        }
         }
         index = event.clientX;
     }
