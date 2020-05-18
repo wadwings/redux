@@ -6,7 +6,7 @@ const fullscreen_switch = require("../control/fullscreen_switch");
 const rate_switch = require("../control/rate");
 const progress = require("../control/progress");
 const time = require("../control/sync");
-const barrage = require("../barrage/barrage");
+const barrage = require("../barrage/barrage_manager");
 const key_down = require("./keydown");
 const video_window = require("../window/window_manager");
 
@@ -17,6 +17,8 @@ module.exports = function(){
     video.parentNode.appendChild(construct());//将播放组件添加到播放器下方
     let play_button = document.querySelector("#play");
     let player = document.querySelector("#player");
+    console.log(player);
+    console.log(player.style.height);
     let fullscreen = document.querySelector("#fullscreen");
     let clicklist = [video, play_button];
     let rate = document.querySelector("#rate");

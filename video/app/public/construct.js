@@ -21,12 +21,14 @@ module.exports = function() {
     play.setAttribute("id", "play");
     play.innerHTML = '<svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%"><use class="ytp-svg-shadow" xlink:href="#ytp-id-116"></use><path class="ytp-svg-fill" fill="#fff" d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z" id="ytp-id-116"></path></svg>'
 
-
     let rate = document.createElement("button");
     rate.setAttribute("id", "rate");
 
     let video_window = document.createElement("button");
     video_window.setAttribute("id", "window");
+    video_window.innerHTML = '<svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%"><use class="ytp-svg-shadow" xlink:href="#ytp-id-23"></use><path d="M25,17 L17,17 L17,23 L25,23 L25,17 L25,17 Z M29,25 L29,10.98 C29,9.88 28.1,9 27,9 L9,9 C7.9,9 7,9.88 7,10.98 L7,25 C7,26.1 7.9,27 9,27 L27,27 C28.1,27 29,26.1 29,25 L29,25 Z M27,25.02 L9,25.02 L9,10.97 L27,10.97 L27,25.02 L27,25.02 Z" fill="#fff" id="ytp-id-23"></path></svg>';
+
+
 
     let fullscreen = document.createElement("button");
     fullscreen.setAttribute("id", "fullscreen");
@@ -63,6 +65,12 @@ module.exports = function() {
     send.innerHTML="发送弹幕";
     barrage.appendChild(input);
     barrage.appendChild(send);
+    let barrage_switch = document.createElement("div");
+    barrage_switch.setAttribute("id", "barrage_switch");
+    barrage.appendChild(barrage_switch);
+    let circur = document.createElement("div");
+    circur.setAttribute("id", "circur");
+    barrage.appendChild(circur);
 
     components = [progress, play, volume, time, barrage, fullscreen, video_window, rate];
     for(let i = 0;i < components.length; i++){

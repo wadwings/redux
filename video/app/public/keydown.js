@@ -1,5 +1,7 @@
 const video_time = require("../control/key_time");
 const video_volume = require("../control/key_volume");
+const addBarrage = require("../barrage/barrage_send");
+
 
 module.exports = function (player) {
     player.onmouseover = function () {
@@ -11,6 +13,7 @@ module.exports = function (player) {
 };
 
 function control(evt) {
+    const player = document.querySelector("#player");
     const video = document.querySelector("video");
     let event = evt || window.event;
     if (event.keyCode == 13) {
