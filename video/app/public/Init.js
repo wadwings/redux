@@ -8,7 +8,7 @@ const progress = require("../control/progress");
 const time = require("../control/sync");
 const barrage = require("../barrage/barrage");
 const key_down = require("./keydown");
-
+const video_window = require("../window/window_manager");
 
 
 module.exports = function(){
@@ -32,4 +32,5 @@ module.exports = function(){
     time(video);//视频当前播放时间获取
     barrage(player);
     key_down(player);
+    video_window(player);
 }

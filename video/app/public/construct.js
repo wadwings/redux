@@ -25,6 +25,8 @@ module.exports = function() {
     let rate = document.createElement("button");
     rate.setAttribute("id", "rate");
 
+    let video_window = document.createElement("button");
+    video_window.setAttribute("id", "window");
 
     let fullscreen = document.createElement("button");
     fullscreen.setAttribute("id", "fullscreen");
@@ -62,7 +64,7 @@ module.exports = function() {
     barrage.appendChild(input);
     barrage.appendChild(send);
 
-    components = [progress, play, volume, time, barrage, fullscreen, rate];
+    components = [progress, play, volume, time, barrage, fullscreen, video_window, rate];
     for(let i = 0;i < components.length; i++){
         control.appendChild(components[i])
     }
