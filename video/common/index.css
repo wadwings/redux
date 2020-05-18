@@ -1,12 +1,17 @@
 body{
     background-color: #afb4db;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #player{
+    position:relative;
     height: 640px;
     width: 1080px;
     cursor: pointer;
-    margin:0 auto;
+    margin:0;
+    overflow: hidden;
 }
 
 video{
@@ -137,7 +142,7 @@ video{
 }
 
 #non_played{
-    width: 79.5%;
+    width: 80%;
     background-color: rgba(255, 255, 255, 0.5);
 }
 

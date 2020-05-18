@@ -8,19 +8,22 @@ module.exports = function(video){
         const duration = video.duration;
         video.pause();
         let d = 0;
-        console.log(index);
-        if(index == 0)
+        if(index == 0||event.clientX == 0)
             d = 0;
         else{
             d = event.clientX - index;
-        let rate = -(d/progress.clientWidth);
-        if(played.clientWidth/progress.clientWidth + rate <= 99.5 && played.clientWidth/progress.clientWidth + rate >= 0){
-            video.currentTime = duration*(played.clientWidth/progress.clientWidth + rate);
-            played.setAttribute("style", "width: " + (played.clientWidth/progress.clientWidth + rate) + "%");
-            non_played.setAttribute("style", "width: " + (non_played.clientWidth/progress.clientWidth - rate) + "%");
+        let rate = d;
+        console.log(rate);
+        if(played.clientWidth + rate <= progress.clientWidth && played.clientWidth + rate >= 0){
+            video.currentTime = duration*(played.clientWidth + rate)/progress.clientWidth;
+            console.log("1" + played.clientWidth/progress.clientWidth);
+            played.style.width = (played.clientWidth + rate) + "px";
+            console.log("3" + played.clientWidth + rate);
+            console.log("2" + played.clientWidth);
+            non_played.style.width= (non_played.clientWidth - rate) + "px";
         }else{
             video.currentTime = duration;
-            played.setAttribute("style", "width: 99.5%");
+            played.setAttribute("style", "width: 100%");
             non_played.setAttribute("style", "width: 0%");
             }
         }
@@ -31,9 +34,18 @@ module.exports = function(video){
         video.play()
     }
     document.querySelector("#progress").onclick = function(event){
-        rate = (event.clientX - progress.offsetLeft)/progress.clientWidth>1?1:(event.clientX - progress.offsetLeft)/progress.clientWidth;
+        rate = (event.clientX - ClientLeft(progress))/progress.clientWidth>1?1:(event.clientX - ClientLeft(progress))/progress.clientWidth;
         video.currentTime = duration*rate;
         played.setAttribute("style", "width: " + rate*0.995 + "%");
         non_played.setAttribute("style", "width: " + rate*0.995 + "%");
     }
+}
+
+function ClientLeft(element){
+    let left = 0;
+    while(element != document.body){
+        left += element.offsetLeft;
+        element = element.parentNode;
+    }
+    return left;
 }

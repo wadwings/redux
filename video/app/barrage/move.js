@@ -2,7 +2,7 @@ module.exports = move;
 
 function move(p) {
     p.style.left = (parseInt(p.style.left) - 50) + "px";
-    if(parseInt(p.style.left) <= 0){
+    if(parseInt(p.style.left) <= -700){
         setTimeout(function(){
             removeElement(p);
     },300);

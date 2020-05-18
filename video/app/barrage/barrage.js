@@ -22,13 +22,13 @@ function addBarrage(player) {
     let p = document.createElement("p");
     let clientHeight = player.clientHeight - 45;
     let top = new Date()%clientHeight;
-    let clientWidth = player.clientWidth + player.offsetLeft;
+    let clientWidth = player.clientWidth;
+    p.style.fontSize = (40-text.length > 20 ?40-text.length:20) + "px";
     p.innerHTML = text;
     p.style.position = "absolute";
-    p.style.fontSize = "15px";
     p.style.color = colors[index];
-    p.style.top = top + "px";
-    p.style.left = clientWidth + "px";
+    p.style.top = (top - 45) + "px";
+    p.style.left = (clientWidth + text.length*parseInt(p.style.fontSize)/2) + "px";
     p.style.transition = "0.3s linear";
     player.appendChild(p);
     console.log(p);
